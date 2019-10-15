@@ -1,30 +1,35 @@
 package com.pubkart.order.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pubkart.order.model.Cart;
+import com.pubkart.order.dto.OrderDto;
+import com.pubkart.order.dto.UserDto;
 import com.pubkart.order.service.OrderService;
 
 @RestController
-@RequestMapping("/order-service")
+@RequestMapping("order-service")
 public class OrderController {
 
 	@Autowired
 	OrderService orderService;
-	
-	
-	@GetMapping("/createOrder")
-	public String  createOrder(@RequestBody Cart cart) {
-		
-		return orderService.createOrder(cart);
-		
-		
-		
-		
+
+	@PostMapping("/order")
+	public OrderDto createOrder(@RequestBody UserDto user) {
+
+		return orderService.createOrder(user);
 	}
-	
+
+	@GetMapping("/order/{userId}")
+	public List<OrderDto> getOrder(@PathVariable String userId) {
+
+		return orderService.getOrders(userId);
+	}
 }

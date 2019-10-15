@@ -1,12 +1,14 @@
 package com.pubkart.order.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-import com.pubkart.order.model.Cart;
+import com.pubkart.order.dto.OrderDto;
+import com.pubkart.order.dto.UserDto;
 
-@Service
 public interface OrderService {
-	
-	public String createOrder(Cart cart);
+
+	public OrderDto createOrder(UserDto user);
+
+	public List<OrderDto> getOrders(String userId);
 
 }

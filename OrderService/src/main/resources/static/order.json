@@ -1,0 +1,21 @@
+{
+	"id":null,
+	"paymentId":"",
+	"paymentStatus":"",
+	"orderStatus":"",
+	"userId":"1",
+	"orderDate":"",
+	"cart":
+		{
+			"id":1,
+			"cartValue":100,
+			"userId":"1",
+			"items":
+				[
+					{
+						"id":1,
+						"quantity":10,
+						"perUnitPrice":100.0}
+				]
+		}
+}
