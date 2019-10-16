@@ -1,6 +1,6 @@
 package com.pubkart.order.dto;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.pubkart.order.model.OrderStatus;
@@ -16,10 +16,11 @@ public class OrderDto {
 	private String paymentId;
 	private PaymentStatus paymentStatus;
 	private OrderStatus orderStatus;
-	private Date orderDate;
+	private LocalDateTime orderDate;
 	private List<ItemDto> items;
 	private String userId;
 	private Double orderValue;
+
 	public OrderDto() {
 
 	}

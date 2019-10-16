@@ -1,7 +1,6 @@
 package com.pubkart.order.model;
 
-import java.sql.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +9,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,10 +35,13 @@ public class Order {
 	private PaymentStatus paymentStatus;
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderStatus;
-	private Date orderDate;
+	@CreationTimestamp
+	private LocalDateTime createDateTime;
+	@UpdateTimestamp
+	private LocalDateTime updateDateTime;
 	@Column(name = "user_id")
 	private String userId;
-	
+
 	private Double orderValue;
 
 	public Order() {
