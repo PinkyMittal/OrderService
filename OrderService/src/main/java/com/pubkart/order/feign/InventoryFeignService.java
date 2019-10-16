@@ -12,10 +12,10 @@ import com.pubkart.order.dto.ItemDto;
 @FeignClient(name = "inventory-service", fallback = InventoryFeignServiceFallBack.class)
 public interface InventoryFeignService {
 
-	@GetMapping("/getCartItems")
+	@GetMapping("/canplaceorder")
 	public ResponseEntity<String> getItems(List<ItemDto> list);
 	
-	@PutMapping("/updateInventory")
+	@PutMapping("/updateinventory")
 	public ResponseEntity<String> updateInventory(List<ItemDto> list);
 
 }
