@@ -2,8 +2,6 @@ package com.pubkart.order.feign;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.pubkart.order.dto.ItemDto;
@@ -15,15 +13,13 @@ public class InventoryFeignServiceFallBack implements InventoryFeignService {
 	private static final String ORDER_FAILED = "ORDER FAILED";
 
 	@Override
-	public ResponseEntity<String> getItems(List<ItemDto> list) {
-		ResponseEntity<String> response = new ResponseEntity<String>(ORDER_FAILED, HttpStatus.NOT_FOUND);
-		return response;
+	public String getItems(List<ItemDto> list) {
+		return ORDER_FAILED;
 	}
 
 	@Override
-	public ResponseEntity<String> updateInventory(List<ItemDto> list) {
-		ResponseEntity<String> response = new ResponseEntity<String>(UPDATE_INVENTORY_FAILED, HttpStatus.NOT_FOUND);
-		return response;
+	public String updateInventory(List<ItemDto> list) {
+		return UPDATE_INVENTORY_FAILED;
 	}
 
 }

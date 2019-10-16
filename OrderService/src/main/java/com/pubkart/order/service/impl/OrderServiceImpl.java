@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.pubkart.order.dto.CartDto;
@@ -28,7 +27,7 @@ import com.pubkart.order.service.OrderService;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-	private static final String PASS = "PASS";
+	private static final String SUCCESS = "Success";
 	@Autowired
 	InventoryFeignService inventoryFeignService;
 
@@ -40,16 +39,16 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	ItemRepository itemRepository;
-	
+
 	@Autowired
 	CatalogFeignService catalogFeignService;
 
 	@Override
 	public OrderDto createOrder(UserDto user) {
 		List<ItemDto> items = user.getCart().getItems();
-		ResponseEntity<String> result = inventoryFeignService.getItems(items);
+		String result = inventoryFeignService.getItems(items);
 
-		if (PASS.equals(result.getBody())) {
+		if (SUCCESS.equals(result)) {
 			Order order = saveInitialOrder(user);
 			makePayment(user.getCart(), order);
 			return getOrderDto(order);
@@ -73,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	private void makePayment(CartDto cart, Order order) {
-		Payment payment = new Payment(order.getUserId(), order.getId(), cart.getCartValue(), null);
+		Payment payment = new Payment(order.getUserId(), Long.toString(order.getId()), cart.getCartValue(), null);
 		PaymentResponse response = paymentFeignService.makePayment(payment);
 		if (PaymentStatus.SUCCESS.equals(response.getStatus())) {
 			updateInventory(cart.getItems());
@@ -85,7 +84,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	private void notifyCatalog(String userId) {
-		catalogFeignService.notifyCatalog(new UserDto(userId,new CartDto()));
+		catalogFeignService.notifyCatalog(new UserDto(userId, new CartDto()));
 	}
 
 	private void updateInventory(List<ItemDto> items) {
