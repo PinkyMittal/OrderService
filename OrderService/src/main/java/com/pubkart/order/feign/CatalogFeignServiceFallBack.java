@@ -8,7 +8,7 @@ import com.pubkart.order.dto.CartDto;
 import com.pubkart.order.dto.UserDto;
 
 @Component
-public class CartFeignServiceFallBack implements CatalogFeignService {
+public class CatalogFeignServiceFallBack implements CatalogFeignService {
 
 	@Override
 	public ResponseEntity<CartDto> notifyCatalog(UserDto userDto) {

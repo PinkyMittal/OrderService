@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
 		List<ItemDto> items = user.getCart().getItems();
 		ResponseEntity<String> result = inventoryFeignService.getItems(items);
 
-		if (result.equals(PASS)) {
+		if (PASS.equals(result.getBody())) {
 			Order order = saveInitialOrder(user);
 			makePayment(user.getCart(), order);
 			return getOrderDto(order);
